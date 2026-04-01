@@ -3,6 +3,8 @@ try: import requests
 except ImportError: print("[!] pip install requests"); sys.exit(1)
 try: from pypresence import Presence
 except ImportError: print("[!] pip install pypresence"); sys.exit(1)
+try: from pypresence.types import ActivityType, StatusDisplayType
+except ImportError: print("[!] pip install pypresence"); sys.exit(1)
 try: import psutil
 except ImportError: print("[!] pip install psutil"); sys.exit(1)
 try: import win32gui, win32process
@@ -257,7 +259,8 @@ def main():
                     state = f"{p['artist']} \u00b7 {tqual}" if tqual else p["artist"]
                     kw = {"details": p["title"][:128], "state": state[:128],
                         "large_image": tcover or cfg.get("fallback_cover") or "qobuz_icon",
-                        "large_text": (talbum or "Qobuz")[:128]}
+                        "large_text": (talbum or "Qobuz")[:128],
+                        "activity_type": ActivityType.LISTENING}
                     if tstart > 0: kw["start"] = int(tstart)
                     if cfg.get("show_quality_badge", True):
                         kw["small_image"] = "qobuz_icon"; kw["small_text"] = tqual or "Qobuz"
