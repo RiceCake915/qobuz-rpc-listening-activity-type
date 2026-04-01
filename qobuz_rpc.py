@@ -7,6 +7,8 @@ try: import requests
 except ImportError: print("[!] pip install requests"); sys.exit(1)
 try: from pypresence import Presence
 except ImportError: print("[!] pip install pypresence"); sys.exit(1)
+try: from pypresence.types import ActivityType, StatusDisplayType
+except ImportError: print("[!] pip install pypresence"); sys.exit(1)
 try: import psutil
 except ImportError: print("[!] pip install psutil"); sys.exit(1)
 try: import win32gui, win32process
@@ -551,6 +553,7 @@ class App:
             "details": title[:128], "state": state[:128],
             "large_image": cover or self.cfg.get("fallback_cover") or "qobuz_icon",
             "large_text": (album or "Qobuz")[:128],
+            "activity_type": ActivityType.LISTENING
         }
         if self.tstart > 0: kw["start"] = int(self.tstart)
         if self.cfg.get("show_quality_badge", True):
